@@ -3,36 +3,17 @@ node_js:
   - 11
 install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
 script: if [ -z "$TRAVIS_TAG" ]; then NODE_ENV=test npm test; fi
-before_install:
-  - docker build -t juice_shop .
-  
+
 before_deploy:
   - rm -rf node_modules
   - rm -rf frontend/node_modules
   - npm install --production
   - npm run package
-jobs:
-  include:
-    - stage: lint
-      if: tag IS blank
-      install: npm i -g standard && cd frontend && npm install && cd ..
-      script: npm run lint
-    - stage: integration
-      if: tag IS blank
-      script:
-        - export NODE_ENV=test
-        - npm test
-        - npm run frisby
-      after_success:
-        - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
-        - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
-    - stage: e2e
-      if: tag IS blank
-      script:
-        - export NODE_ENV=test
-        - npm run protractor
-    - stage: deploy
-      if: (branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request
-      node_js: 11
-      install: skip
-      script: skip
+
+after_success:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --no-include-email --region eu-west-1)
+  - docker build -t juice_shop .
+  - docker tag juice_shop:latest 555107934542.dkr.ecr.eu-west-1.amazonaws.com/juiceshop
+  - docker push 555107934542.dkr.ecr.eu-west-1.amazonaws.com/juiceshop:latest
