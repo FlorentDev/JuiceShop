@@ -36,7 +36,7 @@ deploy:
     draft: true
     tag_name: "$TRAVIS_TAG"
     on:
-      repo: bkimminich/juice-shop
+      repo: FlorentDev/JuiceShop
       tags: true
 jobs:
   include:
