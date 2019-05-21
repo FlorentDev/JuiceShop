@@ -15,7 +15,7 @@ before_deploy:
   - npm install --production
   - npm run package
 script:
-  - wget https://bintray.com/jeremy-long/owasp/download_file?file_path=dependency-check-5.0.0-M3-release.zip
+  - wget -o . https://bintray.com/jeremy-long/owasp/download_file?file_path=dependency-check-5.0.0-M3-release.zip
   - unzip dependency-check-5.0.0-M3-release.zip
   - ./bin/dependency-check.sh --project DependencyTest --out . --scan .
 
