@@ -17,7 +17,7 @@ addons:
   chrome: stable
   code_climate:
     repo_token:
-      secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
+      secure: 2ejd776fLyyMtLAzcZEaBw
 install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
 script: if [ -z "$TRAVIS_TAG" ]; then NODE_ENV=test npm test; fi
 before_deploy:
@@ -29,7 +29,7 @@ deploy:
   - provider: releases
     overwrite: true
     api_key:
-      secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+      secure: 2ejd776fLyyMtLAzcZEaBw
     file: dist/*
     skip_cleanup: true
     file_glob: true
