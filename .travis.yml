@@ -9,15 +9,6 @@ stages:
   - integration
   - e2e
   - deploy
-branches:
-  except:
-    - gh-pages
-    - l10n_develop
-addons:
-  chrome: stable
-  code_climate:
-    repo_token:
-      secure: 2ejd776fLyyMtLAzcZEaBw
 install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
 script: if [ -z "$TRAVIS_TAG" ]; then NODE_ENV=test npm test; fi
 before_deploy:
@@ -63,27 +54,3 @@ jobs:
       node_js: 11
       install: skip
       script: skip
-      deploy:
-        - provider: heroku
-          api_key:
-            secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
-          app:
-            master: juice-shop
-            develop: juice-shop-staging
-            facelift: juice-shop-experimental
-          on:
-            repo: bkimminich/juice-shop
-notifications:
-  webhooks:
-    urls:
-      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
-    on_success: always
-    on_failure: always
-    on_start: never
-  slack:
-    rooms:
-      secure: jis/Fcasy+4QCqg6SZnf1XxXTNFrQENutYCN4QuMUQbfiD6QsLxTQS5o0MZ8e9EYTdptUXmjjgkaEulxO5fIUtmDcOrKcPxToDMjyCZEglfEf9CzRVRap7LnZwoCZ5yet/0E68qt4QhfTgfwYc9QIfSZo45rdyNS6BXI2vomGqE=
-    on_success: change
-    on_failure: change
-    on_start: never
-    on_pull_requests: false
