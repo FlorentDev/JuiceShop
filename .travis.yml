@@ -1,16 +1,11 @@
 language: node_js
 node_js:
-  - 10
-  - 8
   - 11
-stages:
-  - lint
-  - test
-  - integration
-  - e2e
-  - deploy
 install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
 script: if [ -z "$TRAVIS_TAG" ]; then NODE_ENV=test npm test; fi
+before_install:
+  - docker build -t juice_shop .
+  
 before_deploy:
   - rm -rf node_modules
   - rm -rf frontend/node_modules
