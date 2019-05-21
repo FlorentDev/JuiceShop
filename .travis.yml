@@ -16,19 +16,6 @@ before_deploy:
   - rm -rf frontend/node_modules
   - npm install --production
   - npm run package
-deploy:
-  - provider: releases
-    overwrite: true
-    api_key:
-      secure: 2ejd776fLyyMtLAzcZEaBw
-    file: dist/*
-    skip_cleanup: true
-    file_glob: true
-    draft: true
-    tag_name: "$TRAVIS_TAG"
-    on:
-      repo: FlorentDev/JuiceShop
-      tags: true
 jobs:
   include:
     - stage: lint
