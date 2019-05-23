@@ -31,6 +31,6 @@ after_success:
 
 deploy:
   provider: s3
-  access_key_id: $ARTIFACT_ID
-  secret_access_key: $ARTIFACT_KEY
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: "juiceshopbucket"
