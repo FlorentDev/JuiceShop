@@ -17,7 +17,7 @@ before_deploy:
 script:
   - wget https://bintray.com/jeremy-long/owasp/download_file?file_path=dependency-check-5.0.0-M3-release.zip -O dependency-check.zip
   - unzip dependency-check.zip
-  - sh ./dependency-check/bin/dependency-check.sh --scan .
+#  - sh ./dependency-check/bin/dependency-check.sh --project DependencyTest --out . --scan .
 
 after_success:
   - pip install --user awscli
@@ -31,6 +31,6 @@ after_success:
 
 deploy:
   provider: s3
-  access_key_id: "AKIAYCPYC4FHNXMXXGJQ"
-  secret_access_key: "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"
+  access_key_id: $ARTIFACT_ID
+  secret_access_key: $ARTIFACT_KEY
   bucket: "juiceshopbucket"
