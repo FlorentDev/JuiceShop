@@ -31,6 +31,17 @@ after_success:
 
 deploy:
   provider: s3
+  s3_region: "eu-west-1"
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: "juiceshopbucket"
+
+addons:
+  artifacts:
+    s3_region: "eu-west-1"
+    paths:
+     - ./report
+
+script:
+  - sudo mkdir report && sudo chown 1000:1000 report
+  - docker run -t -v $(pwd)/report:/zap/wrk/:rw owasp/zap2docker-stable zap-baseline.py -t http://http://52.214.27.145:32768 -r testreport.html || true
