@@ -19,6 +19,10 @@ script:
 #  - unzip dependency-check.zip
 #  - sh ./dependency-check/bin/dependency-check.sh --project DependencyTest --out . --scan .
   - wget https://github.com/optiopay/klar/releases/download/v2.4.0/klar-2.4.0-linux-amd64
+  - DOCKER_LOGIN=`aws ecr get-login --no-include-email`
+  - PASSWORD=`echo $DOCKER_LOGIN | cut -d' ' -f6`
+  - REGISTRY=`echo $DOCKER_LOGIN | cut -d' ' -f7 | sed "s/https:\/\///"`
+  - DOCKER_USER=AWS DOCKER_PASSWORD=${PASSWORD} ./klar ${REGISTRY}/my-image
 
 after_success:
   - pip install --user awscli
